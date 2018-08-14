@@ -11,6 +11,48 @@ struct Graph
 	vector<struct Edge> EdgeList;
 	int type;
 };
+void printIncidence(struct Graph G)
+{
+	vector<vector<int> > Incidence;
+	int E = G.EdgeList.size();
+	set<int> vertices;
+	for(int i = 0; i < E; i ++ )
+	{
+		vertices.insert(G.EdgeList[i].v1);
+		vertices.insert(G.EdgeList[i].v2);	
+	}
+	int V =vertices.size();
+	set<int> ::iterator it;
+	it =vertices.begin();
+	map<int,int> indices;
+	int i= 0;
+	printf("%2d ",0);
+	for(it = vertices.begin(); it != vertices.end(); it ++)
+	{
+		indices[*it] = i;
+		printf("%2d ",*it);
+		i ++;
+	}
+	cout << endl;	
+	for(int i = 0; i < E; i ++ )
+	{
+		vector<int> b(V);
+		int v1 = indices[G.EdgeList[i].v1];
+		int v2 = indices[G.EdgeList[i].v2];
+		b[v2] = 1 -(2*G.type);
+		b[v1] = 1;
+		Incidence.push_back(b);	
+	}
+	for(int i = 0; i < E;i++)
+	{
+		printf("%2d ",i+1);
+		for(int j = 0; j < V; j ++ )
+			printf("%2d ",Incidence[i][j]);
+
+		cout << endl;
+	}
+	
+}
 void printProperties(struct Graph G)
 {
 	cout << "Properties of the Graph are:" << endl;
@@ -107,4 +149,5 @@ int main()
 			G.EdgeList.push_back(e);
 		}
 		printProperties(G);
+		printIncidence(G);
 }
