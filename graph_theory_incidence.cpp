@@ -37,10 +37,11 @@ void printIncidence(struct Graph G)
 	for(int i = 0; i < E; i ++ )
 	{
 		vector<int> b(V);
+		int weight = (int)G.EdgeList[i].weight;
 		int v1 = indices[G.EdgeList[i].v1];
 		int v2 = indices[G.EdgeList[i].v2];
-		b[v2] = 1 -(2*G.type);
-		b[v1] = 1;
+		b[v2] = (1 -(2*G.type))*weight;
+		b[v1] = weight;
 		Incidence.push_back(b);	
 	}
 	for(int i = 0; i < E;i++)
