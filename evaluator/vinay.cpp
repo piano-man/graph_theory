@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include<ctime>
 using namespace std;
 struct Edge
 {
@@ -11,7 +12,7 @@ struct Graph
 	vector<struct Edge> EdgeList;
 	int type;
 };
-void printIncidence(struct Graph G)
+void printIncidence(struct Graph G,int isTime)
 {
 	vector<vector<int> > Incidence;
 	int E = G.EdgeList.size();
@@ -44,7 +45,8 @@ void printIncidence(struct Graph G)
 		b[v1] = weight;
 		Incidence.push_back(b);
 	}
-	cout << sizeof(Incidence) << endl;
+	if(!isTime)	
+		cout << E*V*sizeof(int) << endl;
 	/*
 	for(int i = 0; i < E;i++)
 	{
@@ -131,6 +133,8 @@ void printProperties(struct Graph G)
 }
 int main()
 {
+		int isTime;
+		cin >> isTime;
 		struct Graph G;
 		//cout << "Enter 1 for directed and 0 for undirected\n";
 		int dir;
@@ -151,6 +155,12 @@ int main()
 			e.weight = w;
 			G.EdgeList.push_back(e);
 		}
+		clock_t start,end;
+		start = clock();
 		//printProperties(G);
-		printIncidence(G);
+		printIncidence(G,isTime);
+		end = clock();
+		clock_t time = (end - start ) / (float) CLOCKS_PER_SEC;
+		if(isTime)
+			cout << time << endl;
 }

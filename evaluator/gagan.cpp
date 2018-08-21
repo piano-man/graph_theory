@@ -1,5 +1,6 @@
 //graph representation using complex list
 #include<bits/stdc++.h>
+#include<ctime>
 using namespace std;
 
 struct Node
@@ -23,8 +24,11 @@ struct Node
 int main()
 {
     map<int,struct Node*> m;
-    int n;
+    int isTime;
+    cin >> isTime;
     size_t s;
+    clock_t start,end;
+    start = clock();
     while(1)
     {
         int v1,v2,weight;
@@ -68,7 +72,12 @@ int main()
         (node1->outgoing_links).push_back(ol);
         (node2->incoming_links).push_back(il);
     }
-    cout << s / 8<< endl;
+    end = clock();
+    clock_t time = (end - start ) / (float)CLOCKS_PER_SEC;
+	if(!isTime)
+    		cout << s / 8<< endl;
+	else
+		cout << time << endl;
 
     map<int,Node*>::iterator it;
     for(it = m.begin();it!=m.end();it++)

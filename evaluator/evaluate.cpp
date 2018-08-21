@@ -3,9 +3,11 @@
 #include<ctime>
 using namespace std;
 //string filenames[] = [string a("gagan"),string b("vinay")];
-string getInput(int V , int E,bool isVinay)
+string getInput(int V , int E,bool isVinay,bool isTime)
 {
 	string s;
+	if(isTime)
+		s += "1\n";
 	if(isVinay)
 		s += " 1\n" ;
 	stringstream ss,ss2;
@@ -28,7 +30,7 @@ string getInput(int V , int E,bool isVinay)
 	s += "-1\n";
 	return s;
 }
-void run(int i , int j,bool isVinay)
+void run(int i , int j,bool isVinay,bool isTime)
 {
 	char * code,*timeoutput,*spaceoutput,*executable;
 	clock_t start = clock();
@@ -36,7 +38,7 @@ void run(int i , int j,bool isVinay)
 	char * space,*time,*exec;
 	if(isVinay)
 	{
-		 space = "vinay_space";
+		space = "vinay_space";
 		time = "vinay_time";
 		exec = "./vinay < input > output";
 	}
@@ -48,7 +50,7 @@ void run(int i , int j,bool isVinay)
 	}
 	ofstream output(space,ios::app),output2(time,ios::app);
 	myfile.open ("input");
-	myfile << getInput(i,j,isVinay);
+	myfile << getInput(i,j,isVinay,isTime);
 	myfile.close();
 	start = clock();
 	int status = system(exec);
@@ -57,11 +59,17 @@ void run(int i , int j,bool isVinay)
 	file.open("output");
 	string ss;
 	file >> ss;
-	output <<i << " " << j << " "  <<  ss << endl;
-	output.close();
-	output2 << i << " " << j << " " << (end -start )/(float)CLOCKS_PER_SEC << endl;
-	output2.close();
-	
+	if(!isTime)
+	{
+		output <<i << " " << j << " "  <<  ss << endl;
+		output.close();
+	}
+	else
+	{
+		output2 << i << " " << j << " " << (end -start )/(float)CLOCKS_PER_SEC << endl;
+		output2.close();
+	}
+
 }
 int main()
 {
@@ -69,7 +77,8 @@ int main()
 	{
 		for(int j = 1; j < 100; j += 5)
 		{
-			run(i,j,true);
+			run(i,j,true,true);
+			run(i,j,true,false);
 		}
 	}
 	cout << "vinay completed" << endl;
@@ -77,8 +86,9 @@ int main()
 	{
 		for(int j = 1; j < 100; j += 5)
 		{
-			run(i,j,false);
+			run(i,j,false,true);
+			run(i,j,false,false);
 		}
 	}
-	cout << "gagan completed"<<endl;
+	cout << "gagan completed" <<endl;
 }
