@@ -14,8 +14,8 @@ string getInput(int V , int E,bool isVinay,bool isTime)
 	int random,random1,weight;
 	for(int i = 0; i < E; i ++ )
 	{
-		random =  i % V;
-		random1 = (rand()+1)%V;
+		random =  0;
+		random1 = 1;
 		weight = rand() % E;
 		ss << " " << random << " " << random1 << " " << weight << " " << endl;
 		s += ss.str();
@@ -38,14 +38,14 @@ void run(int i , int j,bool isVinay,bool isTime)
 	char * space,*time,*exec;
 	if(isVinay)
 	{
-		space = "./logs/vinay_space";
-		time = "./logs/vinay_time";
+		space = "./logs/incidence_space";
+		time = "./logs/incidence_time";
 		exec = "./execs/vinay < ./temps/input > ./temps/output";
 	}
 	else
 	{
-		space = "./logs/gagan_space";
-		time = "./logs/gagan_time";
+		space = "./logs/efficient_space";
+		time = "./logs/efficient_time";
 		exec = "./execs/gagan < ./temps/input > ./temps/output";
 	}
 	ofstream output(space,ios::app),output2(time,ios::app);
@@ -76,19 +76,19 @@ int main()
 	char * clear;
 	clear = "rm ./logs/*";
 	int count = 0,previousPercentage = 0;
-	int maxim = 1000;
-	int increment = 50;
+	int maxim = 100;
+	int increment = 5;
 	int total = maxim/increment;
 	total *= total;
 	int status = system(clear);
-	for(int i = 1; i < maxim; i += increment)
+	for(int i = 2; i < maxim; i += increment)
 	{
-		for(int j = 1; j < maxim; j += increment)
+		for(int j = 2; j < maxim; j += increment)
 		{
 			run(i,j,true,true);
 			run(i,j,true,false);
 			count ++;
-			cout << i << " " << j << endl;
+			//cout << i << " " << j << endl;
 			int percentage = (100*count)/total;
 			if(percentage != previousPercentage)
 				cout << percentage << endl;

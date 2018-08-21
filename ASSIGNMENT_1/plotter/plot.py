@@ -72,7 +72,7 @@ def getLogs(filename):
 				newrow.append(x)
 			vinay_space.append(newrow);
 	return vinay_space
-logs = ["vinay_space","gagan_space","vinay_time","gagan_time"]
+logs = ["incidence_space","efficient_space","incidence_time","efficient_time"]
 data = []
 #os.system("rm ../evaluator/logs/*")
 #os.system("../evaluator/evaluate")
