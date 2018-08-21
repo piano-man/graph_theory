@@ -44,6 +44,7 @@ void printIncidence(struct Graph G)
 		b[v1] = weight;
 		Incidence.push_back(b);
 	}
+	cout << sizeof(Incidence) << endl;
 	/*
 	for(int i = 0; i < E;i++)
 	{
