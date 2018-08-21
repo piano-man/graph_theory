@@ -66,7 +66,7 @@ void run(int i , int j,bool isVinay,bool isTime)
 	}
 	else
 	{
-		output2 << i << " " << j << " " << (end -start )/(float)CLOCKS_PER_SEC << endl;
+		output2 << i << " " << j << " " << ss << endl;
 		output2.close();
 	}
 

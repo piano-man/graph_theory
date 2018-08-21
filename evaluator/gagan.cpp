@@ -73,7 +73,7 @@ int main()
         (node2->incoming_links).push_back(il);
     }
     end = clock();
-    clock_t time = (end - start ) / (float)CLOCKS_PER_SEC;
+    clock_t time = (end - start );
 	if(!isTime)
     		cout << s / 8<< endl;
 	else

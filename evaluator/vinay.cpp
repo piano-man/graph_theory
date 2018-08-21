@@ -160,7 +160,7 @@ int main()
 		//printProperties(G);
 		printIncidence(G,isTime);
 		end = clock();
-		clock_t time = (end - start ) / (float) CLOCKS_PER_SEC;
+		clock_t time = (end - start );
 		if(isTime)
 			cout << time << endl;
 }
