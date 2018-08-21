@@ -73,21 +73,42 @@ void run(int i , int j,bool isVinay,bool isTime)
 }
 int main()
 {
-	for(int i = 1; i < 100; i += 5)
+	char * clear;
+	clear = "rm ./logs/*";
+	int count = 0,previousPercentage = 0;
+	int maxim = 1000;
+	int increment = 50;
+	int total = maxim/increment;
+	total *= total;
+	int status = system(clear);
+	for(int i = 1; i < maxim; i += increment)
 	{
-		for(int j = 1; j < 100; j += 5)
+		for(int j = 1; j < maxim; j += increment)
 		{
 			run(i,j,true,true);
 			run(i,j,true,false);
+			count ++;
+			cout << i << " " << j << endl;
+			int percentage = (100*count)/total;
+			if(percentage != previousPercentage)
+				cout << percentage << endl;
+			previousPercentage = percentage;	
 		}
 	}
+	count = 0;
+	previousPercentage = 0;
 	cout << "vinay completed" << endl;
-	for(int i = 1; i < 100; i += 5)
+	for(int i = 1; i < maxim; i += increment)
 	{
-		for(int j = 1; j < 100; j += 5)
+		for(int j = 1; j < maxim; j += increment)
 		{
 			run(i,j,false,true);
 			run(i,j,false,false);
+			count ++;
+			int percentage =(100 * count) / total;
+			if(previousPercentage != percentage)
+				cout << percentage << endl;
+			previousPercentage = percentage;
 		}
 	}
 	cout << "gagan completed" <<endl;

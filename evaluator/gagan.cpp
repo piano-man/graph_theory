@@ -74,17 +74,17 @@ int main()
     }
     end = clock();
     clock_t time = (end - start );
-	if(!isTime)
-    		cout << s / 8<< endl;
-	else
+	if(isTime)
 		cout << time << endl;
 
     map<int,Node*>::iterator it;
+    int size = 0;
     for(it = m.begin();it!=m.end();it++)
     {
         Node* temp = it->second;
-        int l1 = temp->incoming_links.size();
-        int l2 = temp->outgoing_links.size();
+        int l1 = (temp->incoming_links.size())*sizeof(Node::IncomingLink);
+        int l2 = (temp->outgoing_links.size()) * sizeof(Node::OutgoingLink);
+	size += (l1 + l2);
         //cout << "Vertex:" << temp->value << "\n";
         //cout << "Incoming edge weights \n";
         int i;
@@ -102,4 +102,6 @@ int main()
         cout << "\n";
 	*/
     }
+    if(!isTime)
+	cout << size << endl;
 }
