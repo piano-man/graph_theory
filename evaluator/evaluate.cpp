@@ -38,25 +38,25 @@ void run(int i , int j,bool isVinay,bool isTime)
 	char * space,*time,*exec;
 	if(isVinay)
 	{
-		space = "vinay_space";
-		time = "vinay_time";
-		exec = "./vinay < input > output";
+		space = "./logs/vinay_space";
+		time = "./logs/vinay_time";
+		exec = "./execs/vinay < ./temps/input > ./temps/output";
 	}
 	else
 	{
-		space = "gagan_space";
-		time = "gagan_time";
-		exec = "./gagan < input > output";
+		space = "./logs/gagan_space";
+		time = "./logs/gagan_time";
+		exec = "./execs/gagan < ./temps/input > ./temps/output";
 	}
 	ofstream output(space,ios::app),output2(time,ios::app);
-	myfile.open ("input");
+	myfile.open ("./temps/input");
 	myfile << getInput(i,j,isVinay,isTime);
 	myfile.close();
 	start = clock();
 	int status = system(exec);
 	clock_t end = clock();
 	ifstream file;
-	file.open("output");
+	file.open("./temps/output");
 	string ss;
 	file >> ss;
 	if(!isTime)
