@@ -200,6 +200,6 @@ int main(){
 	}*/
 	const clock_t begin_time = clock();
 	checkIsomorphism(g, h, n, n);
-	cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC<<endl;
+	cout << float( clock () - begin_time ) / CLOCKS_PER_SEC<<endl;
 	return 0;
 }

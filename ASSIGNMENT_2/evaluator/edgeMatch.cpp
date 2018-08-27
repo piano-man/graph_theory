@@ -42,7 +42,7 @@ void checkIsomorphism(vvi &g, vvi &h, int n, int m){
 	int gEdge, hEdge, i, j, tmp;
 	vi gDegree, hDegree;
 	if(n!=m){
-		//cout<<"Number of vertices are different."<<endl;
+		cout<<"Number of vertices are different."<<endl;
 		return;
 	}
 	gEdge=0;
@@ -66,14 +66,14 @@ void checkIsomorphism(vvi &g, vvi &h, int n, int m){
 		hEdge+=tmp;
 	}
 	if(gEdge!=hEdge){
-		cout<<"Number of edges are different."<<endl;
+		//cout<<"edges are different."<<endl;
 		return;
 	}
 	sort(gDegree.begin(), gDegree.end());
 	sort(hDegree.begin(), hDegree.end());
 	for(i=0;i<n;i++){
 		if(gDegree[i]!=hDegree[i]){
-			cout<<"Vertices have different set of degrees."<<endl;
+			//cout<<"Vertices have different set of degrees."<<endl;
 			return;
 		}
 	}
@@ -142,15 +142,48 @@ void checkIsomorphism(vvi &g, vvi &h, int n, int m){
 int main(){
 	int n, i, j;
 	float r, p;
-	cin>>n >> p;
+	cin>>n>>p;
 	vvi g, h, per, perT, ans, ans1;
 	vi ar;
+	for(i=0;i<n;i++){
+		ar.pb(i);
+		vi tmp;
+		for(j=0;j<n;j++){
+			tmp.pb(0);
+		}
+		g.pb(tmp);
+		h.pb(tmp);
+		per.pb(tmp);
+		perT.pb(tmp);
+	}
+	for(i=0;i<n;i++){
+		for(j=0;j<i;j++){
+			r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+			if(r<=p){
+				g[i][j]=1;
+				g[j][i]=1;
+			}
+		}
+	}
+	for(i=0;i<n;i++){
+		for(j=0;j<i;j++){
+			r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+			if(r<=p){
+				h[i][j]=1;
+				h[j][i]=1;
+			}
+		}
+	}
+	random_shuffle(ar.begin(), ar.end());
+	for(i=0;i<n;i++){
+		per[i][ar[i]]=1;
+	}
 
 	//P * G * transpose (P) - supposedly to create another random matrix
 	//P is an shuffled identity matrix i.e there is only one in each row and each col.
-	//transpose(per, perT, n);
-	//multiply(g, perT, ans, n);
-	//multiply(per, ans, h, n);
+//	transpose(per, perT, n);
+//	multiply(g, perT, ans, n);
+//	multiply(per, ans, h, n);
 	/*cout<<"G:"<<endl;
 	printf("\t");
 	for(i=0;i<n;i++)
@@ -176,7 +209,7 @@ int main(){
 		cout<<endl;
 	}*/
 	const clock_t begin_time = clock();
-	checkIsomorphism(g, h, n, n - 1);
+	checkIsomorphism(g, h, n, n);
 	cout << float( clock () - begin_time ) <<endl;
 	return 0;
 }

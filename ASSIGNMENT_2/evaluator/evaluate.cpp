@@ -36,13 +36,14 @@ int main()
   cout << "Enter the maximum number and the increment: " << endl;
   cin >> maxim >> increment;
   int st = system("rm  ./logs/*");
-  char* logs[] = {"./logs/traditional","./logs/vertexMatch"};
+  char* logs[] = {"./logs/traditional","./logs/vertexMatch","./logs/edgeMatch"};
   char * execs[] = {
     "./execs/traditional < ./temps/input > ./temps/output",
-    "./execs/vertexMatch < ./temps/input > ./temps/output"
+    "./execs/vertexMatch < ./temps/input > ./temps/output",
+    "./execs/edgeMatch < ./temps/input > ./temps/output"
 
                   };
-  for(int i = 0; i < 2; i ++ )
+  for(int i = 0; i < 3; i ++ )
   {
     createLog(maxim,increment,logs[i],execs[i]);
   }
