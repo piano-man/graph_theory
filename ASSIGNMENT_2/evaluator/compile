@@ -1,0 +1,8 @@
+#!/bin/bash
+g++ -o evaluate evaluate.cpp;
+echo "evaluate compilation completed";
+g++ -o ./execs/traditional traditional.cpp;
+echo "traditional compilation completed";
+g++ -o ./execs/vertexMatch vertexMatch.cpp;
+echo "vertexMatch compilation completed";
+./evaluate
