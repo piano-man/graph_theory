@@ -42,7 +42,7 @@ void checkIsomorphism(vvi &g, vvi &h, int n, int m){
 	int gEdge, hEdge, i, j, tmp;
 	vi gDegree, hDegree;
 	if(n!=m){
-		cout<<"Number of vertices are different."<<endl;
+		//cout<<"Number of vertices are different."<<endl;
 		return;
 	}
 	gEdge=0;
@@ -101,9 +101,9 @@ void checkIsomorphism(vvi &g, vvi &h, int n, int m){
 		multiply(h, perT, ans, n);
 		multiply(per, ans, ans1, n);
 		if(compare(g, ans1, n)){
-			cout<<"Isomoprphism present."<<endl;
+			//cout<<"Isomoprphism present."<<endl;
 			for(i=0;i<n;i++)
-				cout<<i<<" "<<ar[i]<<endl;
+				//cout<<i<<" "<<ar[i]<<endl;
 			return;
 		}
 		for(i=0;i<n;i++){
@@ -142,38 +142,15 @@ void checkIsomorphism(vvi &g, vvi &h, int n, int m){
 int main(){
 	int n, i, j;
 	float r, p;
-	cin>>n>>p;
+	cin>>n >> p;
 	vvi g, h, per, perT, ans, ans1;
 	vi ar;
-	for(i=0;i<n;i++){
-		ar.pb(i);
-		vi tmp;
-		for(j=0;j<n;j++){
-			tmp.pb(0);
-		}
-		g.pb(tmp);
-		per.pb(tmp);
-		perT.pb(tmp);
-	}
-	for(i=0;i<n;i++){
-		for(j=0;j<i;j++){
-			r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-			if(r<=p){
-				g[i][j]=1;
-				g[j][i]=1;
-			}
-		}
-	}
-	random_shuffle(ar.begin(), ar.end());
-	for(i=0;i<n;i++){
-		per[i][ar[i]]=1;
-	}
 
 	//P * G * transpose (P) - supposedly to create another random matrix
 	//P is an shuffled identity matrix i.e there is only one in each row and each col.
-	transpose(per, perT, n);
-	multiply(g, perT, ans, n);
-	multiply(per, ans, h, n);
+	//transpose(per, perT, n);
+	//multiply(g, perT, ans, n);
+	//multiply(per, ans, h, n);
 	/*cout<<"G:"<<endl;
 	printf("\t");
 	for(i=0;i<n;i++)
@@ -199,7 +176,7 @@ int main(){
 		cout<<endl;
 	}*/
 	const clock_t begin_time = clock();
-	checkIsomorphism(g, h, n, n);
+	checkIsomorphism(g, h, n, n - 1);
 	cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC<<endl;
 	return 0;
 }
