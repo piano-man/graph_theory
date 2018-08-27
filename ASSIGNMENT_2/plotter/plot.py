@@ -3,7 +3,7 @@ import csv
 def plot(x,y,filename):
     fig = plt.figure()
     plt.plot(x,y,'ro')
-    plt.axis([min(x),max(x),min(y),max(y)])
+    plt.axis([min(x)-1,max(x)+1,min(y)-1,max(y)+1])
 
     fig.savefig(filename+".png")
 def getLogs(filename):
@@ -30,5 +30,5 @@ for j,x in enumerate(data):
     for s in x:
         y.append(s[0])
         z.append(s[1])
-    print(y[:-2],z[:-2])
+    print(y[:10],z[:10])
     plot(y,z,files[j])
