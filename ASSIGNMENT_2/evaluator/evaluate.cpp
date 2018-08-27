@@ -43,7 +43,7 @@ int main()
     "./execs/edgeMatch < ./temps/input > ./temps/output"
 
                   };
-  for(int i = 0; i < 3; i ++ )
+  for(int i = 1; i < 3; i ++ )
   {
     createLog(maxim,increment,logs[i],execs[i]);
   }
