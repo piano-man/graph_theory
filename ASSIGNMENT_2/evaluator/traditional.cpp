@@ -164,9 +164,9 @@ int main(){
 			}
 		}
 	}
-	random_shuffle(ar.begin(), ar.end());
+	//random_shuffle(ar.begin(), ar.end());
 	for(i=0;i<n;i++){
-		per[i][ar[i]]=1;
+		per[i][n - 1 - ar[i]]=1;
 	}
 
 	//P * G * transpose (P) - supposedly to create another random matrix

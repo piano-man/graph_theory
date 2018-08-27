@@ -35,7 +35,7 @@ int main()
   int maxim,increment;
   cout << "Enter the maximum number and the increment: " << endl;
   cin >> maxim >> increment;
-  int st = system("rm  ./logs/*");
+  int st = system("rm  ./logs/traditional");
   char* logs[] = {"./logs/traditional","./logs/vertexMatch","./logs/edgeMatch"};
   char * execs[] = {
     "./execs/traditional < ./temps/input > ./temps/output",
@@ -43,7 +43,7 @@ int main()
     "./execs/edgeMatch < ./temps/input > ./temps/output"
 
                   };
-  for(int i = 1; i < 3; i ++ )
+  for(int i = 0 ;i < 1; i ++ )
   {
     createLog(maxim,increment,logs[i],execs[i]);
   }
