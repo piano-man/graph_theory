@@ -65,10 +65,17 @@ def findCutSet(e,T,edgeList,V):
 
 
 
-def ymw(F,R,G,edgeList,V):
-    ##print("Graph is ",G)
+def ymw(F,R,G,edgeList,V,recCount):
+    if(recCount > 20):
+        return
+    recCount += 1
+    if(len(F) > len(V) - 1):
+        return
+    print("Graph is ",G)
     cutSets = {}
     k = len(F)
+    if( k == 0 ):
+        k = -1
     n = len(V)
     for count,edge in enumerate(G):
         cutSet = findCutSet(edge,G,edgeList,V)
@@ -77,23 +84,38 @@ def ymw(F,R,G,edgeList,V):
     #print(cutSets)
     #print("length of the Graph ",len(G))
     #print(k)
+    print(G)
     for i in range(k+1,n-1):
+
         #print(i)
         e = G[i]
+        print("\nVertex ",e)
+        print(G)
         S = cutSets[e]
+        if(len(cutSets[e]) == 0):
+            print("\nEmpty cutset")
+            continue
         #print(S)
-        for j in range(k+1,i-1):
-            F.union(set(G[j]))
-            print(set(G[j]))
-        print("F is ",F)
-        R.union(set(e))
-        print("R is ", R)
-        G.remove(e)
+        print("new F is ",G[k+1:i])
+        Fi = list(F)
+        Fi.extend(G[k+1:i])
+        Fi = set(Fi)
+        print("F is ",Fi)
+        Ri = []
+        Ri.append(e)
+        Ri.extend(R)
+        Ri = set(Ri)
+        print("R is ", Ri)
+        Gi = []
+        for i in range(len(G)):
+            Gi.append(G[i])
+        Gi.remove(e)
         for x in S:
             #print("Adding x",x)
-            G.append(x)
-            cutSet = findCutSet(x,G,edgeList,V)
+            Gi.append(x)
+            cutSet = findCutSet(x,Gi,edgeList,V)
             cutSets[x] = cutSet
+            #ymw(Fi,Ri,Gi,edgeList,V,recCount)
             break
 
 F = set()
@@ -105,4 +127,5 @@ for x in G:
     V.append(x[0])
     V.append(x[1])
 V = set(V)
-ymw(F,R,G,edgeList,V)
+recCount = 0
+ymw(F,R,G,edgeList,V,recCount)
