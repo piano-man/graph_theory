@@ -92,7 +92,7 @@ int main()
 			int percentage = (100*count)/total;
 			if(percentage != previousPercentage)
 				cout << percentage << endl;
-			previousPercentage = percentage;	
+			previousPercentage = percentage;
 		}
 	}
 	count = 0;
