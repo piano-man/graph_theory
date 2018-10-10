@@ -1,5 +1,7 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<time.h>
 typedef struct {
     unsigned int first;
     unsigned int second;
@@ -65,8 +67,8 @@ static void spanning_trees_recursive(const edge *edges, unsigned int n, unsigned
 {
     if (t == order - 1) {
         /* Found a tree */
-        fun(tree, order - 1);
-      }
+      //  fun(tree, order - 1);
+    }
     else {
         unsigned int e;
         for (e = predecessor + 1; e < n; e++) {
@@ -121,49 +123,35 @@ edge *complete_graph(unsigned int v)
 static void print_tree(const edge *tree, unsigned int n)
 {
     unsigned int e;
-    set<int> s;
-    for(e = 0; e < n; e++)
-    {
-      s.insert(tree[e].first);
-      s.insert(tree[e].second);
-    }
-    if(s.size() != n + 1)
-    {
-      return;
-    }
     for (e = 0; e < n; e++) {
         printf("(%u, %u) ", tree[e].first, tree[e].second);
     }
     putchar('\n');
 }
 
-int v;
+
 int main(void)
 {
-    printf("Enter the number of Vertices\n");
+    //printf("Enter the number of Vertices\n");
     int k;
     scanf("%d",&k);
-    v = k;
-    printf("Enter the number of Edges\n");
-    scanf("%d",&k);
-    const unsigned int n = k;
+    const unsigned int v = k;
+    const unsigned int n = triangular_number(v - 1);
     edge *edges;
     edges = complete_graph(n);
     //edges = (edge *) malloc(n * sizeof(edge));
     if (edges == NULL) {
         return 1;
     }
-    printf("Input the edges:\n");
+    //printf("Input the edges:\n");
     int i = 0;
     int first,second;
-    for ( i = 0; i < n ; i ++ )
-    {
-      scanf("%d%d",&first,&second);
-      edges[i].first = first;
-      edges[i].second = second;
-    }
+    clock_t begin = clock();
     spanning_trees(edges, n, v, print_tree,0);
+    begin = clock() -begin ;
     free(edges);
+    float a = (float) begin;
+    printf("%f",a);
 
     return 0;
 }

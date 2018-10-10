@@ -15,9 +15,9 @@ def plot(data,filename):
     x = data[:,0]
     y = data[:,1]
     z = data[:,2]
-    #print(x)
-    #print(y)
-    #print(z)
+    print(x)
+    print(y)
+    print(z)
     print(filename,z.min(),z.max())
     xyz = {'x': x, 'y': y, 'z': z}
     df = pd.DataFrame(xyz, index=range(len(xyz['x'])))
@@ -29,33 +29,15 @@ def plot(data,filename):
     ax = fig.gca(projection='3d')
     surf = ax.plot_surface(x2, y2, z2, rstride=1, cstride=1, cmap=cm.coolwarm,linewidth=0, antialiased=False)
     ax.set_zlim(z.min(),z.max())
+    print(z.min(),z.max())
     ax.zaxis.set_major_locator(LinearLocator(10))
-    ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+    #ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
     fig.colorbar(surf, shrink=0.5, aspect=10)
     plt.xlabel("Vertices")
     plt.ylabel("Edges")
     plt.legend()
     plt.title(filename)
     fig.savefig(filename+".png")
-def getLimits(data):
-	vinay_space = data[0]
-	gagan_space = data[1]
-	vinay_space = np.asarray(vinay_space)
-	gagan_space = np.asarray(gagan_space)
-	vinay_space = vinay_space[:,2]
-	gagan_space = gagan_space[:,2]
-	space_max = max(vinay_space.max(),gagan_space.max())
-	space_min = min(vinay_space.min(),gagan_space.min())
-
-	vinay_time = data[2]
-	gagan_time = data[3]
-	vinay_time = np.asarray(vinay_time)
-	gagan_time = np.asarray(gagan_time)
-	vinay_time = vinay_time[:,2]
-	gagan_time = gagan_time[:,2]
-	time_max = max(vinay_time.max(),gagan_time.max())
-	time_min = min(vinay_time.min(),gagan_time.min())
-	return (space_min, space_max,time_min,time_max)
 def getLogs(filename):
     vinay_space = []
     with open(filename,"r") as f:
@@ -73,4 +55,4 @@ def getLogs(filename):
 data = []
 data = getLogs("../evaluator/ymw.txt");
 print(data)
-plot(data,"ymw")
+plot(data,"backtrack")
