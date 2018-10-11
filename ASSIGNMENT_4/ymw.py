@@ -1,3 +1,4 @@
+import numpy as np
 Gset = []
 def floodFill(G,visited,point):
     adj = []
@@ -71,12 +72,9 @@ def findCutSet(e,T,edgeList,V,F,R):
 
 
 def ymw(F,R,G,edgeList,V,recCount):
-    if(recCount > 20):
-        return
     recCount += 1
     if(len(F) > len(V)):
         return
-    R = []
     #print("Graph is ",G)
     cutSets = {}
     k = len(F)
@@ -91,8 +89,8 @@ def ymw(F,R,G,edgeList,V,recCount):
     #print("length of the Graph ",len(G))
     #print(k)
     #print(G)
-    if len(F) == len(G) - 1:
-        Gset.append(tuple(set(G)))
+    print("F",F,"R",R,"G",G)
+    Gset.append(tuple(set(G)))
     for i in range(k+1,n-1):
 
         #print(i)
@@ -125,20 +123,48 @@ def ymw(F,R,G,edgeList,V,recCount):
             cutSets[x] = cutSet
             ymw(Fi,Ri,Gi,edgeList,V,recCount)
             break
+def createInitialSpanningTree(edgeList,n,visited,source,G):
+    visited[source] = 1
+    G = []
+    for edge in edgeList:
+        if(edge[0] == source and visited[edge[1]] != 1):
+            visited[edge[1]] = 1
+            G.append(edge)
+            G.extend(createInitialSpanningTree(edgeList,n,visited,edge[1],G))
+        if(edge[1] == source and visited[edge[0]] != 1):
+            visited[edge[0]] = 1
+            G.append(edge)
+            G.extend(createInitialSpanningTree(edgeList,n,visited,edge[0],G))
+    return G
 
-F = set()
-R = set()
+F = []
+R = []
 #edgeList = [(1,2),(1,3),(2,3),(2,4),(3,4),(3,5),(4,5),(4,6),(5,6)]
 #G = [(1,2),(1,3),(2,4),(4,5),(4,6)]
-edgeList = [(1,2),(2,3),(3,4),(4,5),(5,2)]
-G = [(1,2),(2,3),(3,4),(4,5)]
+print("Enter the number of Edges:")
+numberOfEdges = int(input())
+edgeList = []
+print("Enter the Edges")
+for i in range(numberOfEdges):
+    a = input()
+    x,y = a.split(" ")
+    x = int(x)
+    y = int(y)
+    edge = (x,y)
+    edgeList.append(edge)
+#edgeList = [(1,2),(2,3),(3,4),(4,5),(5,2)]
+print("edgeList",edgeList)
 V = []
-for x in G:
+for x in edgeList:
     V.append(x[0])
     V.append(x[1])
 V = set(V)
+n = len(V)
+visited = np.zeros((n+1))
+G = []
+G = createInitialSpanningTree(edgeList,n,visited,1,G)
 recCount = 0
 ymw(F,R,G,edgeList,V,recCount)
-Gset = set(Gset)
+print("The spanning Trees are :")
 for G in Gset:
     print(G)
