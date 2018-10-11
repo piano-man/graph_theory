@@ -89,7 +89,14 @@ def ymw(F,R,G,edgeList,V,recCount):
     #print("length of the Graph ",len(G))
     #print(k)
     #print(G)
-    print("F",F,"R",R,"G",G)
+    s = ""
+    for i in range(30):
+        s += "#"
+    print(s)
+    print("F",F)
+    print("R",R)
+    print("G",G)
+    print(s+"\n")
     Gset.append(tuple(set(G)))
     for i in range(k+1,n-1):
 
@@ -116,13 +123,13 @@ def ymw(F,R,G,edgeList,V,recCount):
         for i in range(len(G)):
             Gi.append(G[i])
         Gi.remove(e)
-        for x in S:
+        if(len(S) !=0):
+            x = list(S)[0]
             #print("Adding x",x)
             Gi.append(x)
             cutSet = findCutSet(x,Gi,edgeList,V,Fi,Ri)
             cutSets[x] = cutSet
             ymw(Fi,Ri,Gi,edgeList,V,recCount)
-            break
 def createInitialSpanningTree(edgeList,n,visited,source,G):
     visited[source] = 1
     G = []
@@ -163,6 +170,7 @@ n = len(V)
 visited = np.zeros((n+1))
 G = []
 G = createInitialSpanningTree(edgeList,n,visited,1,G)
+print("Initial Spanning Tree",G)
 recCount = 0
 ymw(F,R,G,edgeList,V,recCount)
 print("The spanning Trees are :")
