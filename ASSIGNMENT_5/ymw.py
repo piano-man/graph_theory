@@ -130,7 +130,11 @@ def createInitialSpanningTree(edgeList,n,visited,source,G):
             G.append(edge)
             G.extend(createInitialSpanningTree(edgeList,n,visited,edge[0],G))
     return G
-
+def distance(G1,G2):
+    G1 = set(G1)
+    G2 = set(G2)
+    Gu = G1.intersection(G2)
+    return len(G1) - len(Gu)
 F = []
 R = []
 #edgeList = [(1,2),(1,3),(2,3),(2,4),(3,4),(3,5),(4,5),(4,6),(5,6)]
@@ -161,5 +165,17 @@ print("Initial Spanning Tree",G)
 recCount = 0
 ymw(F,R,G,edgeList,V)
 print("The spanning Trees are :")
-for G in Gset:
-    print(G)
+d = []
+n = len(Gset)
+print(n)
+for i in range(n):
+    d.append(-1)
+print(d)
+for i in range(n):
+        for j in range(n):
+            dij = distance(Gset[i],Gset[j])
+            d[i] = max(d[i],dij)
+minimum_di = min(d)
+for i in range(n):
+    if(d[i] == minimum_di):
+        print(Gset[i])

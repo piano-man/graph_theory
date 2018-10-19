@@ -1,6 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <bits/stdc++.h>
+using namespace std;
 typedef struct {
     unsigned int first;
     unsigned int second;
@@ -8,8 +7,7 @@ typedef struct {
 
 typedef void (*treefn)(const edge *, unsigned int);
 
-/* Check if vertices v1 and v2 are in different components in the tree 
-*/
+/* Check if vertices v1 and v2 are in different components in the tree */
 void connected_components_recursive(const edge *edges, unsigned int n,
         int *components, unsigned int order, unsigned int vertex,
         unsigned int component)
@@ -24,15 +22,13 @@ void connected_components_recursive(const edge *edges, unsigned int n,
                     edges[i].second : edges[i].first;
             if (components[neighbour] == -1) {
                 /* Not yet visited */
-                connected_components_recursive(edges, n, components, 
-order, neighbour, component);
+                connected_components_recursive(edges, n, components, order, neighbour, component);
             }
         }
     }
 }
 
-unsigned int connected_components(const edge *edges, unsigned int n, 
-unsigned int order,
+unsigned int connected_components(const edge *edges, unsigned int n, unsigned int order,
         int **components)
 {
     unsigned int i;
@@ -47,15 +43,13 @@ unsigned int order,
 
     for (i = 0; i < order; i++) {
         if ((*components)[i] == -1) {
-            connected_components_recursive(edges, n, *components, order, 
-i, component);
+            connected_components_recursive(edges, n, *components, order, i, component);
             component++;
         }
     }
     return component;
 }
-static unsigned int different_components(const edge *tree, unsigned int 
-t, unsigned int order,
+static unsigned int different_components(const edge *tree, unsigned int t, unsigned int order,
         unsigned int v1, unsigned int v2)
 {
     int *components;
@@ -66,15 +60,13 @@ t, unsigned int order,
     return different;
 }
 
-static void spanning_trees_recursive(const edge *edges, unsigned int n, 
-unsigned int order,
-        edge *tree, unsigned int t, int predecessor, treefn fun,int 
-count)
+static void spanning_trees_recursive(const edge *edges, unsigned int n, unsigned int order,
+        edge *tree, unsigned int t, int predecessor, treefn fun,int count)
 {
     if (t == order - 1) {
         /* Found a tree */
         fun(tree, order - 1);
-    }
+      }
     else {
         unsigned int e;
         for (e = predecessor + 1; e < n; e++) {
@@ -83,15 +75,13 @@ count)
                     edges[e].first, edges[e].second))
             {
                 tree[t] = edges[e];
-                spanning_trees_recursive(edges, n, order, tree, t + 1, 
-e, fun,count);
+                spanning_trees_recursive(edges, n, order, tree, t + 1, e, fun,count);
             }
         }
     }
 }
 
-void spanning_trees(const edge *edges, unsigned int n, unsigned int 
-order, treefn fun,int count)
+void spanning_trees(const edge *edges, unsigned int n, unsigned int order, treefn fun,int count)
 {
     edge *tree;
     tree = (edge *)malloc((n - 1) * sizeof(edge));
@@ -131,27 +121,35 @@ edge *complete_graph(unsigned int v)
 static void print_tree(const edge *tree, unsigned int n)
 {
     unsigned int e;
+    set<int> s;
+    for(e = 0; e < n; e++)
+    {
+      s.insert(tree[e].first);
+      s.insert(tree[e].second);
+    }
+    if(s.size() != n + 1)
+    {
+      return;
+    }
     for (e = 0; e < n; e++) {
         printf("(%u, %u) ", tree[e].first, tree[e].second);
     }
     putchar('\n');
 }
 
-
+int v;
 int main(void)
 {
     printf("Enter the number of Vertices\n");
     int k;
     scanf("%d",&k);
-    const unsigned int v = k;
-
-    printf("Input the number of edges:\n");
+    v = k;
+    printf("Enter the number of Edges\n");
     scanf("%d",&k);
-
     const unsigned int n = k;
     edge *edges;
-    //edges = complete_graph(v);
-    edges = (edge *) malloc(n * sizeof(edge));
+    edges = complete_graph(n);
+    //edges = (edge *) malloc(n * sizeof(edge));
     if (edges == NULL) {
         return 1;
     }
