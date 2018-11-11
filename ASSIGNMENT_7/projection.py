@@ -18,6 +18,7 @@ def getInput():
     n = int(n)
     print("Enter the 2d coordinates of the graph")
     graph = []
+    vertices = []
     for i in range(n):
         points = input()
         x,y = points.split(" ")
@@ -25,6 +26,23 @@ def getInput():
         y = int(y)
         z = 0
         graph.append((x,y,z))
+        vertices.append((x,y))
+    E = input("Enter the number of edges")
+    E = int(E)
+    print("Enter the edges")
+    for i in range(E):
+        a,b = input().split(" ")
+        a = int(a)
+        b = int(b)
+        ax = a[0]
+        ay = a[1]
+        bx = b[0]
+        by = b[1]
+        tan = (by - ay) / ( bx - ax )
+        theta = math.atan(tan)
+         
+        
+
     return graph
 def getNewCoordinates(point,Np):
     px,py,pz = point 
