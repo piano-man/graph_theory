@@ -2,6 +2,7 @@ import math
 import cmath
 import numpy as np
 from plot import plot
+import matplotlib.pyplot as plt
 R = 100
 def getNewNorthPole(dt):
     pi = math.pi
@@ -13,6 +14,17 @@ def getNewNorthPole(dt):
     z = R * cos + R
     newNp = (x,y,z)
     return newNp 
+def addEdgesPixels(graph,a,b):
+    ax = a[0]
+    ay = a[1]
+    bx = b[0]
+    by = b[1]
+    xs = np.linspace(ax,bx,num=100)
+    #x-x1/x2-x1 = y - y1 / y2 - y1\
+    for x in xs:
+        y = (((x-ax)/(bx-ax)) * (by - ay)) + ay
+        graph.append(np.asarray([x,y,0]))
+    return graph
 def getInput():
     n = input("Enter the number of points")
     n = int(n)
@@ -25,25 +37,23 @@ def getInput():
         x = int(x)
         y = int(y)
         z = 0
-        graph.append((x,y,z))
-        vertices.append((x,y))
+        graph.append(np.asarray([x,y,z]))
+        vertices.append(np.asarray([x,y]))
+    vertices = np.asarray(vertices)
     E = input("Enter the number of edges")
     E = int(E)
     print("Enter the edges")
+    edges = []
     for i in range(E):
         a,b = input().split(" ")
         a = int(a)
         b = int(b)
-        ax = a[0]
-        ay = a[1]
-        bx = b[0]
-        by = b[1]
-        tan = (by - ay) / ( bx - ax )
-        theta = math.atan(tan)
-         
-        
-
-    return graph
+        a = vertices[a]
+        b = vertices[b]
+        edges.append((a,b))
+        #graph = addEdgesPixels(graph,a,b)
+    graph = np.asarray(graph)
+    return graph,vertices,edges
 def getNewCoordinates(point,Np):
     px,py,pz = point 
     x1,y1,z1 = Np
@@ -74,20 +84,43 @@ def getNewCoordinates(point,Np):
     else:
         znew = zb
     xnew = a1 * znew + b1
-    ynew = a1 * znew + b2 
+    ynew = a2 * znew + b2 
     return np.asarray([xnew,ynew,znew])
-graph = getInput()
+graph,vertices,edges = getInput()
+arguments = []
 for dt in range(0,90,5):
+    mappedPoints =[]
     newNp = getNewNorthPole(dt) 
     newGraph = []
     for point in graph:
         projectedPoint = getNewCoordinates(point,newNp)
         newGraph.append(projectedPoint)
+        mappedPoints.append((point,projectedPoint))
     newGraph = np.asarray(newGraph)
     #print(np.asarray(newGraph))
     xs = newGraph[:,0]
     ys = newGraph[:,1]
     zs = newGraph[:,2]
-    print(xs,ys,zs)
-    plot(xs,ys,zs)
+    vx = graph[:,0]
+    vy = graph[:,1]
+    vz = np.zeros(vx.shape)
+    #print(xs,ys,zs)
+    #print(mappedPoints)
+    #plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges)
+    arguments.append([xs,ys,zs,vx,vy,vz,mappedPoints,edges])
+#fig, ax = plt.subplots()
+def update(frame):
+    event = arguments[frame]
+    xs,ys,zs,vx,vy,vz,mappedPoints,edges = event
+    plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax)
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+for event in arguments:
+    xs,ys,zs,vx,vy,vz,mappedPoints,edges = event
+    plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax)
+    plt.show()
     break
+#ani = FuncAnimation(fig, update, frames=np.linspace(0, 2*np.pi, 128),
+                    #init_func=init, blit=True)
+
