@@ -56,6 +56,10 @@ def plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax,northpole):
     ax.plot(a[0] * np.sin(vert_front) + b[0] * np.cos(vert_front), b[1] * np.cos(vert_front), a[2] * np.sin(vert_front) + b[2] * np.cos(vert_front),color='k')
 
     polex,poley,polez = northpole
+    spx = - 1 * polex
+    spy = -1 * poley
+    spz = 200 - polez
+    ax.plot([polex,spx],[poley,spy],[polez,spz],c="#000000")
     #ax.view_init(elev = elev, azim = 0)
     ax.set_xlim([-150*zoom,150*zoom])
     ax.set_ylim([-150*zoom,150*zoom])
