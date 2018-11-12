@@ -88,9 +88,11 @@ def getNewCoordinates(point,Np):
     return np.asarray([xnew,ynew,znew])
 graph,vertices,edges = getInput()
 arguments = []
-for dt in range(0,90,5):
+poles = []
+for dt in range(0,180,1):
     mappedPoints =[]
     newNp = getNewNorthPole(dt) 
+    poles.append(newNp)
     newGraph = []
     for point in graph:
         projectedPoint = getNewCoordinates(point,newNp)
@@ -116,11 +118,18 @@ def update(frame):
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
+i = 0
 for event in arguments:
+    i += 1
+    angle = i
+    fig = plt.figure() 
+    northpole = poles[i]
+    ax = fig.add_subplot(111, projection='3d')
     xs,ys,zs,vx,vy,vz,mappedPoints,edges = event
-    plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax)
-    plt.show()
-    break
+    plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax,northpole)
+    print(xs.shape,vx.shape)
+    fig.savefig("images/"+str(angle)+".png")
+    fig.clf()
 #ani = FuncAnimation(fig, update, frames=np.linspace(0, 2*np.pi, 128),
                     #init_func=init, blit=True)
 

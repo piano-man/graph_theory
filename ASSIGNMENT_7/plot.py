@@ -3,7 +3,7 @@ from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 
 import matplotlib.pyplot as plt
 import numpy as np
-def plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax):
+def plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax,northpole):
     #fig = plt.figure()
     #ax = fig.add_subplot(111, projection='3d')
     ax.scatter(xs, ys, zs, c='#000000', marker='o')
@@ -55,6 +55,7 @@ def plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax):
     ax.plot(a[0] * np.sin(u) + b[0] * np.cos(u), b[1] * np.cos(u), a[2] * np.sin(u) + b[2] * np.cos(u),color='k', linestyle = 'dashed')
     ax.plot(a[0] * np.sin(vert_front) + b[0] * np.cos(vert_front), b[1] * np.cos(vert_front), a[2] * np.sin(vert_front) + b[2] * np.cos(vert_front),color='k')
 
+    polex,poley,polez = northpole
     #ax.view_init(elev = elev, azim = 0)
     ax.set_xlim([-150*zoom,150*zoom])
     ax.set_ylim([-150*zoom,150*zoom])
@@ -65,12 +66,12 @@ def plot(xs,ys,zs,vx,vy,vz,mappedPoints,edges,fig,ax):
         zs = []
         xs.append(point[0])
         #xs.append(projection[0])
-        xs.append(0)
+        xs.append(polex)
         ys.append(point[1])
         #ys.append(projection[1])
-        ys.append(0)
+        ys.append(poley)
         zs.append(point[2])
         #zs.append(projection[2])
-        zs.append(200)
+        zs.append(polez)
         ax.plot(xs,ys,zs,'r--')
     return ax
