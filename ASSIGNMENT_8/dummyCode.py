@@ -10,5 +10,7 @@ for v in vertices:
 		if v == edge[1]:
 			neighbors.append(edge[2])
 	for neighbor in neighbors:
-		if(idList[neighbor] > idList[vertex] and joined[neighbor] != True):
+		nonRepeatCond = (idList[neighbor] > idList[vertex])
+		isNotJoined = ( joined[neighbor] != True)
+		if(nonRepeatCond and isNotJoined):
 			MIS.append(v)
