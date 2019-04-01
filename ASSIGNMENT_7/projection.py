@@ -3,7 +3,7 @@ import cmath
 import numpy as np
 from plot import plot
 import matplotlib.pyplot as plt
-from animate import animate
+#from animate import animate
 R = 100
 #!/usr/bin/python
 
@@ -146,7 +146,7 @@ def project():
 #ani = FuncAnimation(fig, update, frames=np.linspace(0, 2*np.pi, 128),
                     #init_func=init, blit=True)
 #project()
-animate()
+#animate()
 '''try:
     _thread.start_new_thread(project, () )
     _thread.start_new_thread( animate, () )
